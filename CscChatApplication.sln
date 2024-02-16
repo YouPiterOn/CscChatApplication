@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34003.232
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "CscChatApplication\CscChatApplication.vcxproj", "{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{40D0F934-74F8-4714-9792-EA67138F3325}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shared", "Shared\Shared.vcxitems", "{F8E94F51-3148-4877-9F3B-3016A5C11D41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}.Debug|x64.ActiveCfg = Debug|x64
+		{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}.Debug|x64.Build.0 = Debug|x64
+		{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}.Debug|x86.ActiveCfg = Debug|Win32
+		{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}.Debug|x86.Build.0 = Debug|Win32
+		{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}.Release|x64.ActiveCfg = Release|x64
+		{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}.Release|x64.Build.0 = Release|x64
+		{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}.Release|x86.ActiveCfg = Release|Win32
+		{42CFB8A5-E6FA-4D78-B6D3-106C0746D6F4}.Release|x86.Build.0 = Release|Win32
+		{40D0F934-74F8-4714-9792-EA67138F3325}.Debug|x64.ActiveCfg = Debug|x64
+		{40D0F934-74F8-4714-9792-EA67138F3325}.Debug|x64.Build.0 = Debug|x64
+		{40D0F934-74F8-4714-9792-EA67138F3325}.Debug|x86.ActiveCfg = Debug|Win32
+		{40D0F934-74F8-4714-9792-EA67138F3325}.Debug|x86.Build.0 = Debug|Win32
+		{40D0F934-74F8-4714-9792-EA67138F3325}.Release|x64.ActiveCfg = Release|x64
+		{40D0F934-74F8-4714-9792-EA67138F3325}.Release|x64.Build.0 = Release|x64
+		{40D0F934-74F8-4714-9792-EA67138F3325}.Release|x86.ActiveCfg = Release|Win32
+		{40D0F934-74F8-4714-9792-EA67138F3325}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FEB3524-BB3E-414F-B015-7F3D323DD3F8}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Shared.vcxitems*{40d0f934-74f8-4714-9792-ea67138f3325}*SharedItemsImports = 4
+		Shared\Shared.vcxitems*{42cfb8a5-e6fa-4d78-b6d3-106c0746d6f4}*SharedItemsImports = 4
+		Shared\Shared.vcxitems*{f8e94f51-3148-4877-9f3b-3016a5c11d41}*SharedItemsImports = 9
+	EndGlobalSection
+EndGlobal
