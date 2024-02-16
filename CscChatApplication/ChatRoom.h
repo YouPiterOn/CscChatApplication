@@ -30,8 +30,9 @@ public:
 
 	string name = "";
 
-	void AddClient(string name, SOCKET socket);
+	void AddClient(string clientName, SOCKET socket);
 	void SendMessageToAll(string message, string senderName);
-	void RemoveClient(string name);
+	void RemoveClient(string clientName);
+	bool FindClient(string clientName);
 };
 

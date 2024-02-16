@@ -44,35 +44,53 @@ void Server::ListenForClient() {
 void Server::CommunicationWithClient(SOCKET clientSocket) {
 	string clientName = shared::recieveFromSocket(clientSocket);
 	string roomName = shared::recieveFromSocket(clientSocket);
-	ChatRoom* clientRoom = 0;
+	
 
 	mtx.lock();
-	bool isFound = FALSE;
-	for (ChatRoom* room : _rooms) {
-		if (room->name == roomName) {
-			room->AddClient(clientName, clientSocket);
-			isFound = TRUE;
-			clientRoom = &*room;
-			break;
-		}
+	ChatRoom* clientRoom = FindRoom(roomName);
+	if (clientRoom == nullptr) {
+		CreateRoom(roomName);
+		clientRoom = FindRoom(roomName);
 	}
-	if (!isFound) {
-		clientRoom = new ChatRoom(roomName);
-		_rooms.push_back(clientRoom);
-		clientRoom->AddClient(clientName, clientSocket);
+
+	while (clientRoom->FindClient(clientName) || clientName == "") {
+		shared::sendToSocket("Room already has client with this name, enter different: ", clientSocket);
+		clientName = shared::recieveFromSocket(clientSocket);
 	}
+	clientRoom->AddClient(clientName, clientSocket);
+	shared::sendToSocket("You joined room " + clientRoom->name, clientSocket);
 	mtx.unlock();
 
 	string message;
 	while (true) {
 		message = shared::recieveFromSocket(clientSocket);
 		if (message.size() <= 0) continue;
-		mtx.lock();
+		
 		if (message == "LEAVE") {
+			clientRoom->RemoveClient(clientName);
 
+			shared::sendToSocket("Enter room name to join: ", clientSocket);
+			roomName = shared::recieveFromSocket(clientSocket);
+
+			mtx.lock();
+			clientRoom = FindRoom(roomName);
+			if (clientRoom == nullptr) {
+				CreateRoom(roomName);
+				clientRoom = FindRoom(roomName);
+			}
+			while (clientRoom->FindClient(clientName)) {
+				shared::sendToSocket("Room already has client with this name, enter different: ", clientSocket);
+				clientName = shared::recieveFromSocket(clientSocket);
+			}
+			clientRoom->AddClient(clientName, clientSocket);
+			shared::sendToSocket("You joined room " + clientRoom->name, clientSocket);
+			mtx.unlock();
 		}
-		_messageQueue.push(Message(clientName, message, clientRoom));
-		mtx.unlock();
+		else {
+			mtx.lock();
+			_messageQueue.push(Message(clientName, message, clientRoom));
+			mtx.unlock();
+		}
 	}
 }
 
@@ -86,4 +104,19 @@ void Server::MessageSender() {
 			mtx.unlock();
 		}
 	}
+}
+
+ChatRoom* Server::FindRoom(string roomName) {
+	ChatRoom* clientRoom;
+	for (auto room = _rooms.begin(); room != _rooms.end(); room++) {
+		if (room->name == roomName) {
+			clientRoom = &*room;
+			return clientRoom;
+		}
+	}
+	return nullptr;
+}
+
+void Server::CreateRoom(string roomName) {
+	_rooms.push_back(ChatRoom(roomName));
 }

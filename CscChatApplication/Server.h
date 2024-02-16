@@ -34,7 +34,7 @@ class Server
 
 	mutex mtx;
 
-	list<ChatRoom*> _rooms;
+	list<ChatRoom> _rooms;
 	queue<Message> _messageQueue;
 
 public:
@@ -42,5 +42,7 @@ public:
 	void ListenForClient();
 	void CommunicationWithClient(SOCKET clientSocket);
 	void MessageSender();
+	ChatRoom* FindRoom(string roomName);
+	void CreateRoom(string roomName);
 };
 

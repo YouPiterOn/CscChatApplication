@@ -9,18 +9,26 @@ void ChatRoom::SendMessageToAll(string message, string senderName) {
 	}
 }
 
-void ChatRoom::AddClient(string name, SOCKET socket) {
-	Client newClient(name, socket);
-	_clients.push_back(newClient);
-
-	ChatRoom::SendMessageToAll("Joined room", name);
+void ChatRoom::AddClient(string clientName, SOCKET socket) {
+	_clients.push_back(Client(clientName, socket));
+	ChatRoom::SendMessageToAll("Joined room "+name, clientName);
 }
 
-void ChatRoom::RemoveClient(string name) {
+void ChatRoom::RemoveClient(string clientName) {
 	for (auto itr = _clients.begin(); itr != _clients.end(); itr++) {
-		if (itr->name == name) {
+		if (itr->name == clientName) {
 			_clients.erase(itr);
-			ChatRoom::SendMessageToAll("Left room", name);
+			ChatRoom::SendMessageToAll("Left room "+name, clientName);
+			return;
 		}
 	}
+}
+
+bool ChatRoom::FindClient(string clientName) {
+	for (auto itr = _clients.begin(); itr != _clients.end(); itr++) {
+		if (itr->name == clientName) {
+			return TRUE;
+		}
+	}
+	return FALSE;
 }
